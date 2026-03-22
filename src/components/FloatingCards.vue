@@ -106,14 +106,14 @@
 }
 
 .card-security {
-  top: 120%;
+  top: 100%;
   left: 50%;
   min-width: 330px;
   animation-delay: 0s;
 }
 
 .card-consultation {
-  top: 100%;
+  top: 90%;
   left: 50%;
   transform: translateY(-50%);
   min-width: 300px;
@@ -122,8 +122,8 @@
 
 .card-response {
 
-   top: 90%;
-  left: 50%;
+   top: 85%;
+  left: 40%;
   min-width: 320px;
   animation-delay: 2.1s;
 }
