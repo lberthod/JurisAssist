@@ -33,6 +33,8 @@
       </button>
     </div>
 
+    <ContactModal :isOpen="isModalOpen" @close="closeModal" />
+
     <div class="trust-indicators">
       <div class="trust-item">
         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,12 +64,33 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import ContactModal from './ContactModal.vue'
+
+const isModalOpen = ref(false)
+
 const handlePrimaryAction = () => {
-  console.log('Primary action: Parler à un conseiller')
+  isModalOpen.value = true
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'click', {
+      event_category: 'CTA',
+      event_label: 'Parler à un conseiller - Hero'
+    })
+  }
 }
 
 const handleSecondaryAction = () => {
-  console.log('Secondary action: Demander un rappel')
+  isModalOpen.value = true
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'click', {
+      event_category: 'CTA',
+      event_label: 'Demander un rappel - Hero'
+    })
+  }
+}
+
+const closeModal = () => {
+  isModalOpen.value = false
 }
 </script>
 

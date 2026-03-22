@@ -1,10 +1,9 @@
 <template>
   <div class="process-timeline">
     <div class="timeline-item completed">
-      <div class="timeline-icon">
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 8L7 11L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+     <div class="timeline-icon">
+        <div class="pulse-ring"></div>
+        <span class="timeline-number">1</span>
       </div>
       <div class="timeline-content">
         <span class="timeline-label">Demande reçue</span>

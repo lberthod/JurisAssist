@@ -18,6 +18,7 @@
           <li><a href="#fonctionnement" class="nav-link">Fonctionnement</a></li>
           <li><a href="#assistance" class="nav-link">Assistance</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#Login" class="nav-link">Login</a></li>
         </ul>
         
         <button class="btn-navbar-cta" @click="handleCTAClick">
@@ -36,14 +37,18 @@
         </span>
       </button>
     </div>
+
+    <ContactModal :isOpen="isContactModalOpen" @close="closeContactModal" />
   </nav>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import ContactModal from './ContactModal.vue'
 
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
+const isContactModalOpen = ref(false)
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20
@@ -54,7 +59,18 @@ const toggleMobileMenu = () => {
 }
 
 const handleCTAClick = () => {
-  console.log('CTA clicked: Parler à un conseiller')
+  isContactModalOpen.value = true
+  isMobileMenuOpen.value = false
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'click', {
+      event_category: 'CTA',
+      event_label: 'Parler à un conseiller - Navbar'
+    })
+  }
+}
+
+const closeContactModal = () => {
+  isContactModalOpen.value = false
 }
 
 onMounted(() => {
