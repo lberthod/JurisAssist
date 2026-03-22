@@ -65,8 +65,9 @@
 }
 
 .card-consultation {
-  top: -20px;
-  right: -40px;
+  top: 50%;
+  left: -140px;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 0.875rem;
@@ -115,8 +116,8 @@
 }
 
 .card-security {
-  bottom: 40px;
-  left: -60px;
+  bottom: 80px;
+  left: -100px;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -130,9 +131,8 @@
 }
 
 .card-response {
-  top: 50%;
-  right: -80px;
-  transform: translateY(-50%);
+  top: 30px;
+  right: -120px;
   animation-delay: -6s;
 }
 
@@ -169,15 +169,17 @@
 
 @media (max-width: 1024px) {
   .card-consultation {
-    right: -20px;
+    left: -70px;
   }
   
   .card-security {
-    left: -30px;
+    left: -50px;
+    bottom: 40px;
   }
   
   .card-response {
-    right: -40px;
+    right: -60px;
+    top: 20px;
   }
 }
 </style>
