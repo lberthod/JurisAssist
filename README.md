@@ -8,7 +8,7 @@
 
 **Site déployé sur Vercel :** [https://testjuridik.vercel.app/](https://testjuridik.vercel.app/)
 
-> 🔗 L'URL exacte sera générée après votre premier déploiement Vercel
+
 
 ---
 
