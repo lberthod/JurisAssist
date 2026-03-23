@@ -2,11 +2,13 @@
 
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.4-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.1-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Firebase](https://img.shields.io/badge/Firebase-Hosting-FFCA28?style=flat&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=flat&logo=vercel&logoColor=white)](https://vercel.com/)
 
 ## 🌐 Démo en ligne
 
-**Site de test déployé :** [https://jurisassist-a7583.web.app](https://jurisassist-a7583.web.app)
+**Site déployé sur Vercel :** [https://jurisassist.vercel.app](https://jurisassist.vercel.app)
+
+> 🔗 L'URL exacte sera générée après votre premier déploiement Vercel
 
 ---
 
@@ -35,13 +37,13 @@
 |-------------|---------|-------|
 | **Vue.js** | 3.4.21 | Framework JavaScript progressif |
 | **Vite** | 5.1.6 | Build tool ultra-rapide |
-| **Firebase Hosting** | — | Hébergement et déploiement |
+| **Vercel** | — | Hébergement et déploiement |
 
 ### Pourquoi cette stack ?
 
 - **Vue 3** : Composition API moderne, performances optimales, DX exceptionnelle
 - **Vite** : Hot Module Replacement instantané, build optimisé
-- **Firebase** : Déploiement en un clic, CDN global, SSL automatique
+- **Vercel** : Déploiement automatique via Git, Edge Network global, SSL automatique, preview branches
 
 ---
 
@@ -104,21 +106,66 @@ testjuridik/
 
 ---
 
-## 🌍 Déploiement
+## 🌍 Déploiement sur Vercel
 
-Le projet utilise **Firebase Hosting** pour un déploiement simple et performant.
+Le projet est optimisé pour **Vercel** avec déploiement automatique via Git ou CLI.
 
-### Déployer une nouvelle version
+### Option 1 : Déploiement via GitHub (Recommandé)
 
-```bash
-# 1. Build de production
-npm run build
+1. **Push votre code sur GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin https://github.com/votre-username/jurisassist.git
+   git push -u origin main
+   ```
 
-# 2. Déploiement Firebase
-firebase deploy
-```
+2. **Connecter à Vercel**
+   - Rendez-vous sur [vercel.com](https://vercel.com)
+   - Cliquez "Add New Project"
+   - Importez votre repo GitHub
+   - Vercel détecte automatiquement Vite
+   - Cliquez "Deploy"
 
-Le site sera instantanément mis à jour sur l'URL de production.
+3. **Déploiement automatique**
+   - Chaque push sur `main` = déploiement auto en production
+   - Chaque PR = preview deployment unique
+   - Rollback en un clic depuis le dashboard
+
+### Option 2 : Déploiement via CLI Vercel
+
+1. **Installer Vercel CLI**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Premier déploiement**
+   ```bash
+   vercel
+   ```
+   - Suivez les prompts (login, configuration)
+   - Le projet sera déployé en preview
+
+3. **Déploiement production**
+   ```bash
+   vercel --prod
+   ```
+
+4. **Commandes utiles**
+   ```bash
+   vercel env add        # Ajouter variables d'environnement
+   vercel logs           # Voir les logs
+   vercel ls             # Lister vos déploiements
+   vercel alias          # Configurer domaine custom
+   ```
+
+### URL de déploiement
+
+Après déploiement, vous obtiendrez :
+- **URL preview** : `https://jurisassist-xxxxx.vercel.app`
+- **URL production** : `https://jurisassist.vercel.app`
+- **Domaine custom** : Configurable dans Vercel dashboard
 
 ---
 
@@ -151,21 +198,53 @@ Le site sera instantanément mis à jour sur l'URL de production.
 
 ## 🔧 Configuration
 
-### Firebase (`firebase.json`)
+### Vercel (`vercel.json`)
 ```json
 {
-  "hosting": {
-    "public": "dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
 }
 ```
+
+**Optimisations incluses :**
+- Rewrites SPA pour routing Vue
+- Headers de sécurité (XSS, clickjacking, MIME sniffing)
+- Cache agressif pour assets statiques (1 an)
 
 ### Vite (`vite.config.js`)
 ```js
