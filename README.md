@@ -6,7 +6,7 @@
 
 ## 🌐 Démo en ligne
 
-**Site déployé sur Vercel :** [https://jurisassist.vercel.app](https://jurisassist.vercel.app)
+**Site déployé sur Vercel :** [https://testjuridik.vercel.app/](https://testjuridik.vercel.app/)
 
 > 🔗 L'URL exacte sera générée après votre premier déploiement Vercel
 
